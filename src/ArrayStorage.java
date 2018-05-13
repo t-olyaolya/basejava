@@ -20,7 +20,7 @@ public class ArrayStorage {
     Resume get(String uuid) {
         sizeStorage = size();
         for (int r = 0; r < sizeStorage - 1; r++) {
-            if (storage[r].toString() == uuid) {
+            if (storage[r].uuid.equals(uuid)) {
                 return storage[r];
             }
         }
