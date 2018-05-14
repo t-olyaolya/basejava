@@ -13,7 +13,7 @@ public class ArrayStorage {
     }
 　
     void save(Resume r) {
-       if (size < storage.length) {
+       if (sizeStorage < storage.length) {
         storage [sizeStorage] = r;
         sizeStorage++;
        }
@@ -21,7 +21,6 @@ public class ArrayStorage {
 　
 　
     Resume get(String uuid) {
-        sizeStorage = size();
         for (int r = 0; r < sizeStorage; r++) {
             if (storage[r].uuid.equals(uuid)) {
                 return storage[r];
