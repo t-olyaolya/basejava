@@ -33,9 +33,8 @@ public class ArrayStorage {
         Resume[] storageTmp = new Resume[storage.length];
         for (int r = 0; r < sizeStorage; r++) {
             if (storage[r].uuid.equals(uuid)) {
-                System.arraycopy(storage, 0, storageTmp, 0, r);
-                System.arraycopy(storage, r+1, storageTmp, r, storage.length-r-1);
-                storage=storageTmp;
+                System.arraycopy(storage, r+1, storage, r, storage.lenhth-r-1);
+                storage[sizeStorage-1] = null;
                 sizeStorage--;
                 break;
             }
