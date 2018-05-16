@@ -14,11 +14,11 @@ public class ArrayStorage {
 
     void update(Resume r) {
         int i = searchResume(r.uuid);
-        if (i == -1) {
-            System.out.println("Резюме с таким uuid нет в базе");
+        if (i != -1) {
+            storage[i] = r;
         }
         else {
-            storage[i] = r;
+            System.out.println("Резюме с таким uuid нет в базе");
         }
     }
 
