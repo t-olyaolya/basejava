@@ -12,33 +12,48 @@ public class ArrayStorage {
         sizeStorage = 0;
     }
 
+    void update(Resume r) {
+        int i = searchResume(r.uuid);
+        if (i == -1) {
+            System.out.println("Резюме с таким uuid нет в базе");
+        }
+        else {
+            storage[i] = r;
+        }
+    }
+
     void save(Resume r) {
-       if (sizeStorage < storage.length) {
-        storage [sizeStorage] = r;
-        sizeStorage++;
+       if (searchResume(r.uuid) != -1) {
+           System.out.println("Резюме с таким uuid уже существует");
+       }
+       else if (sizeStorage > storage.length) {
+           System.out.println("Недостаточно места для сохранения");
+       }
+       else {
+           storage[sizeStorage] = r;
+           sizeStorage++;
        }
     }
 
-
     Resume get(String uuid) {
-        for (int r = 0; r < sizeStorage; r++) {
-            if (storage[r].uuid.equals(uuid)) {
-                return storage[r];
-            }
+        int i = searchResume(uuid);
+        if (i == -1) {
+            System.out.println("Резюме с таким uuid нет в базе");
+            return null;
         }
-        return null;
+        return storage[i];
     }
 
     void delete(String uuid) {
-        for (int r = 0; r < sizeStorage; r++) {
-            if (storage[r].uuid.equals(uuid)) {
-                System.arraycopy(storage, r+1, storage, r, storage.length-r-1);
-                storage[sizeStorage-1] = null;
-                sizeStorage--;
-                break;
-            }
+        int i = searchResume(uuid);
+        if (i != -1) {
+            System.arraycopy(storage, i+1, storage, i, storage.length-i-1);
+            storage[sizeStorage-1] = null;
+            sizeStorage--;
         }
-
+        else {
+            System.out.println("Резюме с таким uuid нет в базе");
+        }
     }
 
     /**
@@ -51,5 +66,13 @@ public class ArrayStorage {
     int size() {
         return sizeStorage;
     }
-}
 
+    int searchResume (String uuid) {
+        for (int r = 0; r < sizeStorage; r++) {
+            if (storage[r].uuid.equals(uuid)) {
+                return r;
+            }
+        }
+        return -1;
+    }
+}
