@@ -1,6 +1,5 @@
 package storage;
 
-import com.sun.org.apache.regexp.internal.RE;
 import model.Resume;
 
 public interface Storage {
