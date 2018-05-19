@@ -1,7 +1,8 @@
-import java.util.Arrays;
+import model.Resume;
+import storage.ArrayStorage;
 
 /**
- * Test for com.urise.webapp.storage.ArrayStorage
+ * Test for com.urise.webapp.storage.storage.ArrayStorage
  */
 public class MainTestArrayStorage {
     static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
