@@ -13,37 +13,37 @@ public abstract class AbstractArrayStorage implements Storage {
     protected int sizeStorage = 0;
 
     public void clear() {
-        Arrays.fill(storage,0, sizeStorage, null);
+        Arrays.fill(storage, 0, sizeStorage, null);
         sizeStorage = 0;
     }
 
-    public void save(Resume r) {
-        int index = getIndex(r.getUuid());
+    public void save(Resume resume) {
+        String uuid = resume.getUuid();
+        int index = getIndex(uuid);
         if (index >= 0) {
-            System.out.println("Резюме с таким uuid уже существует");
-        } else if (sizeStorage > STORAGE_LIMIT) {
+            System.out.println("Резюме с uuid: " + uuid + " уже существует");
+        } else if (sizeStorage >= STORAGE_LIMIT) {
             System.out.println("Недостаточно места для сохранения");
-        }
-        else {
-            insertResume(r, index);
+        } else {
+            insertResume(resume, index);
             sizeStorage++;
         }
     }
 
-    public void update(Resume r) {
-        int index = getIndex(r.getUuid());
+    public void update(Resume resume) {
+        String uuid = resume.getUuid();
+        int index = getIndex(uuid);
         if (index >= 0) {
-            storage[index] = r;
-        }
-        else {
-            System.out.println("Резюме с таким uuid нет в базе");
+            storage[index] = resume;
+        } else {
+            System.out.println("Резюме с uuid: " + uuid + " нет в базе");
         }
     }
 
     public Resume get(String uuid) {
         int index = getIndex(uuid);
         if (index < 0) {
-            System.out.println("Резюме с таким uuid нет в базе");
+            System.out.println("Резюме с uuid: " + uuid + " нет в базе");
             return null;
         }
         return storage[index];
@@ -52,12 +52,11 @@ public abstract class AbstractArrayStorage implements Storage {
     public void delete(String uuid) {
         int index = getIndex(uuid);
         if (index >= 0) {
-            deleteResume(index);
-            storage[sizeStorage - 1] = null;
             sizeStorage--;
-        }
-        else {
-            System.out.println("Резюме с таким uuid нет в базе");
+            deleteResume(index);
+            storage[sizeStorage] = null;
+        } else {
+            System.out.println("Резюме с uuid: " + uuid + " нет в базе");
         }
     }
 
